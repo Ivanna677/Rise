@@ -1,0 +1,805 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('image/BC.jpg'); /* путь к твоему изображению */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: #ffffff;
+    position: relative;
+    z-index: 0;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 0, 20, 0.65); /* полупрозрачная тёмная маска */
+    z-index: -1; /* чтобы маска была позади контента */
+}
+
+
+
+
+@font-face {
+  font-family: 'Chiller';
+  src: url('fonts/Chiller.ttf') format('truetype');
+}
+
+
+/* --- Базовые стили навигации --- */
+.navigatie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background-color: #0c021d80;
+    position: relative;
+    z-index: 10;
+}
+
+.navigatie .logo-wrapper img {
+    height: 60px;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+    transition: transform 0.3s ease;
+}
+
+.navigatie .logo-wrapper img:hover {
+    transform: scale(1.05);
+}
+
+/* --- Базовые стили навигации --- */
+.nav-links ul {
+    display: flex;
+    gap: 35px; /* Основное расстояние между ссылками */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: font-size 0.3s ease;
+}
+
+.nav-links a {
+    font-family: 'Chiller';
+    font-size: 35px;
+    color: #E9262C;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+    .nav-links a {
+        font-size: 32px;
+        letter-spacing: 1.5px;
+    }
+
+    .nav-links ul {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 950px) {
+    .nav-links a {
+        font-size: 28px;
+        letter-spacing: 1px;
+    }
+
+    .nav-links ul {
+        gap: 25px;
+    }
+}
+
+@media (max-width: 850px) {
+    .nav-links a {
+        font-size: 24px;
+        letter-spacing: 0.5px;
+    }
+
+    .nav-links ul {
+        gap: 20px;
+    }
+}
+
+.nav-links a:hover {
+    color: #8C2425;
+    text-shadow: 0 0 15px rgba(140, 36, 37, 0.9);
+}
+
+/* --- Кнопка Take Part --- */
+.buttonClass {
+    font-family: 'Chiller';
+    font-size: 25px;
+    background: linear-gradient(135deg, #1A9A8B, #136966);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(26, 154, 139, 0.4);
+    transition: all 0.3s ease;
+}
+
+.buttonClass:hover {
+    background: linear-gradient(135deg, #E9262C, #8C2425);
+    box-shadow: 0 6px 20px rgba(233, 38, 44, 0.5);
+    transform: scale(1.05);
+}
+
+/* --- Гамбургер-кнопка --- */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #CB0119;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.hamburger:hover span {
+    background-color: #871A18;
+}
+
+/* --- Мобильная версия --- */
+@media (max-width: 790px) {
+    /* Скрываем стандартные ссылки */
+    .nav-links ul {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 250px;
+        height: 100vh;
+        background-color: #0c021d;
+        padding: 80px 0 20px;
+        z-index: 1000;
+        transition: right 0.3s ease;
+    }
+
+    .nav-links.show ul {
+        display: flex;
+        right: 0;
+    }
+
+    .nav-links li {
+        margin: 15px 0;
+        text-align: center;
+    }
+
+    .nav-links a {
+        font-size: 24px;
+        color: #F0E5EC;
+    }
+
+    .hamburger {
+        display: flex;
+        order: 2;
+    }
+
+    .navigatie {
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+    }
+
+    .navigatie > *:not(.hamburger) {
+        order: 1;
+    }
+
+    .buttonClass {
+        margin-left: 50 px;
+        margin-right: 50px;
+        margin-top: 0;
+        order: 3;
+    }
+}
+
+
+.video-header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.485); /* чтобы не было пустого фона */
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* показывать всё видео */
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.345);
+}
+
+
+
+
+
+/* --- Заголовок секции с подсветкой --- */
+.section-title {
+    font-family: 'Chiller', Impact, sans-serif;
+    text-align: center;
+    font-size: 80px;
+    margin: 40px 0 20px;
+    color: #ff1e24;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* --- Свечение заголовка --- */
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgb(195, 3, 3), 0 0 20px rgb(192, 4, 4);
+    }
+    to {
+        text-shadow: 0 0 20px rgb(185, 9, 9), 0 0 40px red, 0 0 60px red;
+    }
+}
+
+.introductie,
+.enemy-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.intro-content,
+.enemy-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.intro-image,
+.enemy-image {
+    width: auto; /* Отключаем растяжение */
+    max-width: 450px;
+    height: auto; /* Сохраняем пропорции */
+    max-height: 100%; /* Не выходит за контейнер */
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* На мобильных устройствах */
+@media (max-width: 950px) {
+    .intro-image,
+    .enemy-image {
+        max-width: 90%;
+        width: 90%; /* Чтобы занять всю ширину */
+    }
+}
+
+.intro-text,
+.enemy-text {
+    font-family: "Special Elite", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    flex: 1;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #ffffffd0;
+}
+
+.enemy-text h3 {
+    font-family: 'Chiller', Impact, sans-serif;
+    font-size: 60px;
+    color: #E9262C;
+    margin-bottom: 15px;
+    text-shadow: 0 0 5px #E9262C, 0 0 10px #E9262C, 0 0 20px #E9262C;
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #970c11, 0 0 10px #81181c, 0 0 20px #ba080e;
+    }
+    to {
+        text-shadow: 0 0 10px #af0d12, 0 0 20px #E9262C, 0 0 30px #E9262C;
+    }
+}
+
+
+
+
+/* Optional: animations */
+.intro-content,
+.enemy-content {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s forwards;
+    animation-delay: 0.3s;
+}
+
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 950px) {
+    .enemy-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .enemy-text {
+        order: 3; /* Текст третий */
+    }
+
+    .enemy-text h3 {
+        order: 1; /* Заголовок первый */
+        margin-top: 0;
+    }
+
+    .enemy-image {
+        order: 2; /* Изображение второе */
+        margin: 20px 0;
+    }
+
+    .enemy-text p {
+        text-align: left;
+        max-width: 100%;
+    }
+}
+/* Responsive */
+@media (max-width: 900px) {
+    .intro-content,
+    .enemy-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .intro-text,
+    .enemy-text {
+        text-align: center;
+    }
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Chiller&family=Special+Elite&display=swap ');
+
+.resistance-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+}
+
+/* Анимация переливающейся рамки */
+@keyframes neon-glow {
+    0%, 100% {
+        box-shadow:
+            0 0 8px rgba(255, 0, 60, 0.6),
+            0 0 15px rgba(0, 255, 120, 0.4),
+            0 0 25px rgba(255, 0, 60, 0.5);
+    }
+    50% {
+        box-shadow:
+            0 0 12px rgba(255, 0, 60, 0.9),
+            0 0 25px rgba(0, 255, 120, 0.7),
+            0 0 40px rgba(255, 0, 60, 0.7);
+    }
+}
+
+/* Анимация мерцания рамки у изображения */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 0, 34, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(0, 255, 200, 0.8);
+    }
+}
+
+.resistance-container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Отступ между фото и карточкой */
+}
+
+/* --- PHOTO STYLING --- */
+.card-image {
+  width: 100%;
+  max-width: 300px;
+  height: 350px;
+  background-size: cover;
+  background-position: center;
+  outline: 3px solid red;
+  outline-offset: -3px;
+  box-shadow:
+    inset 0 0 10px red,
+    0 0 15px red; /* Внутреннее и внешнее свечение */
+  border-radius: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-image:hover {
+  transform: scale(1.02);
+  box-shadow:
+    inset 0 0 15px red,
+    0 0 25px red; /* Усиливаем свечение при наведении */
+}
+
+/* --- CARD STYLING --- */
+.resistance-card {
+  background-color: rgba(13, 13, 13, 0.8); /* Полупрозрачный фон (#0d0d0d с прозрачностью) */
+  color: #f0f0f0;
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  transition: all 0.4s ease;
+  border-radius: 0;
+  padding: 20px;
+  backdrop-filter: blur(4px); /* Легкое размытие фона под карточкой (опционально) */
+}
+
+.resistance-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px #1A9A8B, 0 0 50px #1A9A8B;
+}
+
+.highlight-card {
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), 0 0 60px rgba(255, 0, 0, 0.3);
+}
+
+.card-name {
+  font-family: 'Chiller', cursive;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #ff0011;
+  margin-top: 10px;
+  text-shadow: 0 0 15px rgba(233, 38, 44, 0.8);
+}
+
+.card-text {
+  font-family: 'Special Elite', system-ui;
+  font-weight: 400;
+  font-size: 0.95em;
+  line-height: 1.4;
+  padding: 0 20px 20px;
+}
+
+
+.parallax-section {
+  width: 100vw; /* ширина во всю ширину экрана */
+  position: relative;
+  min-height: 100vh; /* Лучше использовать min-height */
+  overflow: hidden;
+  margin: 20vh 0;
+}
+
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.parallax-layer.background {
+  z-index: 1;
+}
+
+.parallax-layer.ufo {
+  z-index: 2;
+  width: 60%;        /* Увеличенный UFO */
+  left: 20%;
+  top: 0.5%;
+  transition: transform 0.1s ease-out;
+}
+
+.parallax-layer.school {
+  z-index: 3;
+}
+
+.fade {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 15vh;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 1), transparent);
+}
+
+.top-fade {
+  top: 0;
+}
+
+.bottom-fade {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
+}
+
+@media (max-width: 992px) {
+    .parallax-section {
+        min-height: 50vh;
+        background:none;
+        padding:0%;
+        margin: 0%;
+    }
+}
+
+
+
+
+
+
+
+.photo-gallery {
+    padding: 0px 0px;
+    background-color: #0c021d63;
+    color: #f2f2f2;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+}
+
+.gallery-title {
+    font-family: 'Chiller';
+    font-size: 5em;
+    margin-bottom: 40px;
+    color: #E9262C;
+    text-shadow: 0 0 15px rgba(233, 38, 44, 0.8);
+}
+
+/* --- Базовая сетка галереи --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* По умолчанию 3 в ряд */
+    gap: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* --- Адаптация под планшеты и маленькие экраны --- */
+@media (max-width: 992px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr); /* По 2 фото в ряд */
+    }
+}
+
+/* --- Адаптация под мобильные устройства --- */
+@media (max-width: 700px) {
+    .gallery-grid {
+        grid-template-columns: 1fr; /* Только 1 фото в ряд */
+        gap: 20px;
+    }
+
+    .gallery-item {
+        height: 200px; /* Уменьшаем высоту на мобильных */
+    }
+
+    .gallery-title {
+        font-size: 3.5em; /* Уменьшаем заголовок */
+    }
+}
+
+.gallery-item {
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid rgba(233, 38, 44, 0.5);
+    box-shadow: 0 0 15px rgba(233, 38, 44, 0.5);
+    transition: all 0.5s ease;
+    animation: redGlow 2s infinite alternate;
+}
+
+.gallery-item:hover {
+    border-color: #1A9A8B;
+    animation: colorShift 1.5s infinite alternate;
+}
+
+/* 🔥 Анимации */
+@keyframes redGlow {
+    0% {
+        box-shadow: 0 0 10px rgba(233, 38, 44, 0.4), 0 0 20px rgba(233, 38, 44, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(233, 38, 44, 0.8), 0 0 40px rgba(233, 38, 44, 0.4);
+    }
+}
+
+@keyframes colorShift {
+    0% {
+        box-shadow: 0 0 10px rgba(233, 38, 44, 0.8), 0 0 20px rgba(233, 38, 44, 0.5);
+        border-color: rgba(233, 38, 44, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 10px #1A9A8B, 0 0 25px #1A9A8B;
+        border-color: #1A9A8B;
+    }
+}
+
+
+
+.video-section {
+    padding: 60px 20px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.video-title {
+    font-family: 'Chiller', cursive;
+    font-size: 4em;
+    margin-bottom: 30px;
+    color: #39c0b0;
+    text-shadow: 0 0 8px #136966, 0 0 16px #1A9A8B;
+    animation: glowText 4s ease-in-out infinite alternate;
+}
+
+.video-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resistance-video {
+    width: 100%;
+    max-width: 960px;
+    aspect-ratio: 16 / 9;
+    border: 5px solid #1A9A8B;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #136966, 0 0 40px #1A9A8B;
+    animation: glowBorder 3s ease-in-out infinite alternate;
+}
+@keyframes glowText {
+  0% { text-shadow: 0 0 5px #1A9A8B, 0 0 10px #136966; }
+  100% { text-shadow: 0 0 15px #1A9A8B, 0 0 30px #136966; }
+}
+
+@keyframes glowBorder {
+  0% { box-shadow: 0 0 10px #1A9A8B, 0 0 20px #136966; }
+  100% { box-shadow: 0 0 25px #1A9A8B, 0 0 45px #136966; }
+}
+
+
+
+.join-resistance {
+    padding: 50px 20px;
+    background-color: #1c1c1c;
+    color: #ffffff;
+    max-width: 600px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+  }
+  
+  .form-title {
+    font-family: 'Chiller';
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 30px;
+    color: #8f081f;
+  }
+  
+  .resistance-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-family: "Special Elite", system-ui;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    font-style: normal;
+    font-family: "Special Elite", system-ui;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    text-align: center;;
+  }
+  
+  .submit-btn {
+    font-family: 'Chiller', 'Special Elite', cursive;
+    font-size: 30px;
+    background: linear-gradient(135deg, #1A9A8B, #136966);
+    color: white;
+    border: none;
+    padding: 18px 60px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(26, 154, 139, 0.4);
+    transition: all 0.3s ease;
+    width: fit-content;
+    max-width: 90%;
+    margin: 0 auto;
+    display: block;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #E9262C, #8C2425);
+    box-shadow: 0 6px 20px rgba(233, 38, 44, 0.5);
+    transform: scale(1.05);
+}
+
+
+
+
+  .resistance-footer {
+    font-family: "Special Elite", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #111111ac;
+    color: #f1f1f1;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+    font-size: 0.9em;
+  }
+  
+  .resistance-footer h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #e74c3c;
+  }
+  
+  .resistance-footer p {
+    margin: 5px 0;
+  }
+  
